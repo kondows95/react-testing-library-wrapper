@@ -1,45 +1,86 @@
-
+This is a wrapper for "@testing-library/react".<br />
+I use only the "ByTestId" method.<br />
+So I created a wrapper library that makes "ByTestId" more concise.<br />
 https://testing-library.com/docs/react-testing-library/cheatsheet
 
-## Available Scripts
+# Install
+```
+$ yarn add -D react-testing-library-wrapper
 
-In the project directory, you can run:
+or
 
-### `yarn start`
+$ npm install -D react-testing-library-wrapper
+```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Usage
+TestForm.test.tsx
+```
+import React from 'react';
+import TestLib from 'react-testing-library-wrapper';
+import TestForm from './TestForm';
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+let tLib: TestLib;
+let sendEmail: jest.Mock;
+let savedEmailValue = '';
 
-### `yarn test`
+beforeEach(() => {
+    savedEmailValue = '';
+    sendEmail = jest.fn((email: string) => {
+        savedEmailValue = email;
+    });
+    tLib = new TestLib(<TestForm sendEmail={sendEmail} />);
+});
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+it('Example1 (submit button)', () => {
+    tLib.changeValue('email', 'a@example.com');
+    tLib.click('btnSubmit');
+    expect(sendEmail).toHaveBeenCalled();
+    expect(savedEmailValue).toBe('a@example.com');
+});
 
-### `yarn build`
+it('Example2 (reset button)', () => {
+    const elem = tLib.get('email');
+    expect(elem.getAttribute("value")).toBe('abcdef');//initial
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    tLib.changeValue('email', 'a@example.com');
+    expect(elem.getAttribute("value")).toBe('a@example.com');
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+    tLib.click('btnReset');
+    expect(elem.getAttribute("value")).toBe('abcdef');//initial
+});
+```
+TestForm.tsx
+```
+import React, { FormEvent, ChangeEvent } from 'react';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+type Props = {
+    sendEmail: (email: string) => void;
+};
 
-### `yarn eject`
+const TestForm: React.FC<Props> = props => {
+    const [email, setEmail] = React.useState<string>('abcdef');
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    const handleSubmit = (event: FormEvent): void => {
+        event.preventDefault();
+        props.sendEmail(email);
+    };
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    const handleReset = (): void => {
+        setEmail('abcdef')
+    };
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        setEmail(event.currentTarget.value);
+    };
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    return (
+        <form onSubmit={handleSubmit}>
+            <input data-testid="email" value={email} onChange={handleChange} />
+            <input type="submit" data-testid="btnSubmit" value="button" />
+            <button data-testid="btnReset" onClick={handleReset}>Reset</button>
+        </form>
+    )
+}
+export default TestForm;
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
