@@ -21,13 +21,9 @@ import TestForm from './TestForm';
 
 let tLib: TestLib;
 let sendEmail: jest.Mock;
-let savedEmailValue = '';
 
 beforeEach(() => {
-    savedEmailValue = '';
-    sendEmail = jest.fn((email: string) => {
-        savedEmailValue = email;
-    });
+    sendEmail = jest.fn();
     tLib = new TestLib(<TestForm sendEmail={sendEmail} />);
 });
 
