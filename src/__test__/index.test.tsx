@@ -4,13 +4,9 @@ import TestForm from './TestForm';
 
 let tLib: TestLib;
 let sendEmail: jest.Mock;
-let savedEmailValue = '';
 
 beforeEach(() => {
-    savedEmailValue = '';
-    sendEmail = jest.fn((email: string) => {
-        savedEmailValue = email;
-    });
+    sendEmail = jest.fn();
     tLib = new TestLib(<TestForm sendEmail={sendEmail} />);
 });
 
@@ -18,7 +14,6 @@ it('Example1 (submit button)', () => {
     tLib.changeValue('email', 'a@example.com');
     tLib.click('btnSubmit');
     expect(sendEmail).toHaveBeenCalledWith('a@example.com');
-    expect(savedEmailValue).toBe('a@example.com');
 });
 
 it('Example2 (reset button)', () => {

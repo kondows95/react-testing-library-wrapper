@@ -17,19 +17,14 @@ const index_1 = __importDefault(require("../index"));
 const TestForm_1 = __importDefault(require("./TestForm"));
 let tLib;
 let sendEmail;
-let savedEmailValue = '';
 beforeEach(() => {
-    savedEmailValue = '';
-    sendEmail = jest.fn((email) => {
-        savedEmailValue = email;
-    });
+    sendEmail = jest.fn();
     tLib = new index_1.default(react_1.default.createElement(TestForm_1.default, { sendEmail: sendEmail }));
 });
 it('Example1 (submit button)', () => {
     tLib.changeValue('email', 'a@example.com');
     tLib.click('btnSubmit');
     expect(sendEmail).toHaveBeenCalledWith('a@example.com');
-    expect(savedEmailValue).toBe('a@example.com');
 });
 it('Example2 (reset button)', () => {
     const elem = tLib.get('email');

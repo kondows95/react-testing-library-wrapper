@@ -35,7 +35,6 @@ it('Example1 (submit button)', () => {
     tLib.changeValue('email', 'a@example.com');
     tLib.click('btnSubmit');
     expect(sendEmail).toHaveBeenCalledWith('a@example.com');
-    expect(savedEmailValue).toBe('a@example.com');
 });
 
 it('Example2 (reset button)', () => {
