@@ -5,10 +5,12 @@ https://testing-library.com/docs/react-testing-library/cheatsheet
 
 # Install
 ```
+$ yarn add -D @testing-library/react
 $ yarn add -D react-testing-library-wrapper
 
 or
 
+$ npm install -D @testing-library/react
 $ npm install -D react-testing-library-wrapper
 ```
 
