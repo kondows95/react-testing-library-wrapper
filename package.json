@@ -1,6 +1,6 @@
 {
   "name": "react-testing-library-wrapper",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "test": "jest"
   },
   "jest": {
+    "rootDir": "./src",
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "babel-jest",
       "^.+\\.(ts|tsx)$": "ts-jest"
