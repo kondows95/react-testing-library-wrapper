@@ -22,9 +22,10 @@ const TestForm: React.FC<Props> = props => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input data-testid="email" value={email} onChange={handleChange} />
-            <input type="submit" data-testid="btnSubmit" value="button" />
-            <button data-testid="btnReset" onClick={handleReset}>Reset</button>
+            <input data-testid="myInput" value={email} onChange={handleChange} />
+            <input data-testid="mySubmit" type="submit" value="button" />
+            <button data-testid="myReset" onClick={handleReset}>#Reset</button>
+            <div data-testid="parentDiv"><span>#Child</span></div>
         </form>
     )
 }
