@@ -6,10 +6,6 @@ export default class Helper {
         this.render = render(component);
     }
 
-    //====================================================================
-    // Simple Wrapper Method
-    //====================================================================
-
     // Almost useless
     change(testId: string): void {
         const elem = this.render.getByTestId(testId);
@@ -55,25 +51,4 @@ export default class Helper {
     async findAll(testId: string): Promise<HTMLElement[]> {
         return this.render.findAllByTestId(testId);
     }
-
-    //=========================================================================
-    // Utility Method
-    //=========================================================================
-
-    getText(testId: string): string {
-        return this.get(testId).textContent || '';
-    }
-
-    getParentText(testId: string): string {
-        return this.get(testId).parentElement?.textContent || '';
-    }
-
-    getHtml(testId: string): string {
-        return this.get(testId).innerHTML || '';
-    }
-
-    getParentHtml(testId: string): string {
-        return this.get(testId).parentElement?.innerHTML || '';
-    }
-
 }

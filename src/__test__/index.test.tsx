@@ -79,21 +79,3 @@ it('findAll', async () => {
     expect(elems.length).toBe(1);
     expect(elems[0].getAttribute("value")).toBe('abcdef');
 });
-
-it('getText', async () => {
-    expect(tLib.getText('myReset')).toBe('#Reset');
-    expect(tLib.getText('myInput')).toBe('');
-});
-
-it('getParentText', async () => {
-    expect(tLib.getParentText('myReset')).toBe('#Reset#Child');
-});
-
-it('getHtml', async () => {
-    expect(tLib.getHtml('parentDiv')).toBe('<span>#Child</span>');
-    expect(tLib.getHtml('myInput')).toBe('');
-});
-
-it('getParentHtml', async () => {
-    expect(tLib.getParentHtml('myInput')).toContain('<input data-testid="myInput"');
-});
