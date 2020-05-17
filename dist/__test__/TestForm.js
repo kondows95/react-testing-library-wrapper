@@ -17,8 +17,10 @@ const TestForm = props => {
         setEmail(event.currentTarget.value);
     };
     return (react_1.default.createElement("form", { onSubmit: handleSubmit },
-        react_1.default.createElement("input", { "data-testid": "email", value: email, onChange: handleChange }),
-        react_1.default.createElement("input", { type: "submit", "data-testid": "btnSubmit", value: "button" }),
-        react_1.default.createElement("button", { "data-testid": "btnReset", onClick: handleReset }, "Reset")));
+        react_1.default.createElement("input", { "data-testid": "myInput", value: email, onChange: handleChange }),
+        react_1.default.createElement("input", { "data-testid": "mySubmit", type: "submit", value: "button" }),
+        react_1.default.createElement("button", { "data-testid": "myReset", onClick: handleReset }, "#Reset"),
+        react_1.default.createElement("div", { "data-testid": "parentDiv" },
+            react_1.default.createElement("span", null, "#Child"))));
 };
 exports.default = TestForm;

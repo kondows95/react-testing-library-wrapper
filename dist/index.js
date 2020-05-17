@@ -14,6 +14,9 @@ class Helper {
     constructor(component) {
         this.render = react_1.render(component);
     }
+    //====================================================================
+    // Simple Wrapper Method
+    //====================================================================
     // Almost useless
     change(testId) {
         const elem = this.render.getByTestId(testId);
@@ -54,6 +57,23 @@ class Helper {
         return __awaiter(this, void 0, void 0, function* () {
             return this.render.findAllByTestId(testId);
         });
+    }
+    //=========================================================================
+    // Utility Method
+    //=========================================================================
+    getText(testId) {
+        return this.get(testId).textContent || '';
+    }
+    getParentText(testId) {
+        var _a;
+        return ((_a = this.get(testId).parentElement) === null || _a === void 0 ? void 0 : _a.textContent) || '';
+    }
+    getHtml(testId) {
+        return this.get(testId).innerHTML || '';
+    }
+    getParentHtml(testId) {
+        var _a;
+        return ((_a = this.get(testId).parentElement) === null || _a === void 0 ? void 0 : _a.innerHTML) || '';
     }
 }
 exports.default = Helper;

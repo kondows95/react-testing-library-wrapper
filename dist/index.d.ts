@@ -12,4 +12,8 @@ export default class Helper {
     getAll(testId: string): HTMLElement[];
     queryAll(testId: string): HTMLElement[];
     findAll(testId: string): Promise<HTMLElement[]>;
+    getText(testId: string): string;
+    getParentText(testId: string): string;
+    getHtml(testId: string): string;
+    getParentHtml(testId: string): string;
 }
